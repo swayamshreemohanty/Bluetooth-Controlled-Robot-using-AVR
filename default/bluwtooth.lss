@@ -1,0 +1,411 @@
+
+bluwtooth.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000164  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000012  00800060  00000164  000001d8  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .debug_aranges 00000020  00000000  00000000  000001ea  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 0000008c  00000000  00000000  0000020a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000001ba  00000000  00000000  00000296  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000143  00000000  00000000  00000450  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   00000270  00000000  00000000  00000593  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000070  00000000  00000000  00000804  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    00000119  00000000  00000000  00000874  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    00000050  00000000  00000000  0000098d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000018  00000000  00000000  000009dd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   8:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  10:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  14:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  18:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  1c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  20:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  24:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  28:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  2c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  30:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  34:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  38:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  3c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  40:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  44:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  48:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  4c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  50:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e4 e6       	ldi	r30, 0x64	; 100
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	a2 37       	cpi	r26, 0x72	; 114
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+  76:	0e 94 6d 00 	call	0xda	; 0xda <main>
+  7a:	0c 94 b0 00 	jmp	0x160	; 0x160 <_exit>
+
+0000007e <__bad_interrupt>:
+  7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000082 <usart_init>:
+
+
+
+void usart_init()
+{
+UBRRH = 0;
+  82:	10 bc       	out	0x20, r1	; 32
+UBRRL =51;
+  84:	83 e3       	ldi	r24, 0x33	; 51
+  86:	89 b9       	out	0x09, r24	; 9
+UCSRB|= (1<<RXEN)|(1<<TXEN);
+  88:	8a b1       	in	r24, 0x0a	; 10
+  8a:	88 61       	ori	r24, 0x18	; 24
+  8c:	8a b9       	out	0x0a, r24	; 10
+UCSRC |= (1 << URSEL)|(3<<UCSZ0);
+  8e:	80 b5       	in	r24, 0x20	; 32
+  90:	86 68       	ori	r24, 0x86	; 134
+  92:	80 bd       	out	0x20, r24	; 32
+}
+  94:	08 95       	ret
+
+00000096 <usart_data_transmit>:
+
+
+void usart_data_transmit( unsigned char data )
+{
+while ( !( UCSRA & (1<<UDRE)) )
+  96:	5d 9b       	sbis	0x0b, 5	; 11
+  98:	fe cf       	rjmp	.-4      	; 0x96 <usart_data_transmit>
+;
+UDR = data;
+  9a:	8c b9       	out	0x0c, r24	; 12
+}
+  9c:	08 95       	ret
+
+0000009e <usart_data_receive>:
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+  9e:	5f 9b       	sbis	0x0b, 7	; 11
+  a0:	fe cf       	rjmp	.-4      	; 0x9e <usart_data_receive>
+;
+return UDR;
+  a2:	8c b1       	in	r24, 0x0c	; 12
+}
+  a4:	08 95       	ret
+
+000000a6 <usart_string_transmit>:
+
+unsigned char usart_string_transmit(unsigned char *string)
+{
+  a6:	fc 01       	movw	r30, r24
+  a8:	04 c0       	rjmp	.+8      	; 0xb2 <usart_string_transmit+0xc>
+}
+
+
+void usart_data_transmit( unsigned char data )
+{
+while ( !( UCSRA & (1<<UDRE)) )
+  aa:	5d 9b       	sbis	0x0b, 5	; 11
+  ac:	fe cf       	rjmp	.-4      	; 0xaa <usart_string_transmit+0x4>
+
+unsigned char usart_string_transmit(unsigned char *string)
+{
+while(*string)
+{
+usart_data_transmit(*string++);
+  ae:	31 96       	adiw	r30, 0x01	; 1
+
+void usart_data_transmit( unsigned char data )
+{
+while ( !( UCSRA & (1<<UDRE)) )
+;
+UDR = data;
+  b0:	8c b9       	out	0x0c, r24	; 12
+return UDR;
+}
+
+unsigned char usart_string_transmit(unsigned char *string)
+{
+while(*string)
+  b2:	80 81       	ld	r24, Z
+  b4:	88 23       	and	r24, r24
+  b6:	c9 f7       	brne	.-14     	; 0xaa <usart_string_transmit+0x4>
+{
+usart_data_transmit(*string++);
+}
+}
+  b8:	08 95       	ret
+
+000000ba <usart_string_receive>:
+
+unsigned char *usart_string_receive(unsigned char *receive_string,unsigned char terminating_character)
+{
+  ba:	9c 01       	movw	r18, r24
+  bc:	90 e0       	ldi	r25, 0x00	; 0
+UDR = data;
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+  be:	5f 9b       	sbis	0x0b, 7	; 11
+  c0:	fe cf       	rjmp	.-4      	; 0xbe <usart_string_receive+0x4>
+;
+return UDR;
+  c2:	8c b1       	in	r24, 0x0c	; 12
+unsigned char *usart_string_receive(unsigned char *receive_string,unsigned char terminating_character)
+{
+	unsigned char temp=0x00;
+	for(unsigned char i=0;;i++)
+	{
+		*(receive_string+i)=usart_data_receive();
+  c4:	f9 01       	movw	r30, r18
+  c6:	e9 0f       	add	r30, r25
+  c8:	f1 1d       	adc	r31, r1
+  ca:	80 83       	st	Z, r24
+		if(*(receive_string+i)==terminating_character)
+  cc:	86 17       	cp	r24, r22
+  ce:	11 f0       	breq	.+4      	; 0xd4 <usart_string_receive+0x1a>
+			break;
+		else
+		temp++;
+  d0:	9f 5f       	subi	r25, 0xFF	; 255
+  d2:	f5 cf       	rjmp	.-22     	; 0xbe <usart_string_receive+0x4>
+	}
+	*(receive_string+temp)='\0';
+  d4:	10 82       	st	Z, r1
+	return receive_string;
+}
+  d6:	c9 01       	movw	r24, r18
+  d8:	08 95       	ret
+
+000000da <main>:
+
+
+
+void main(void)
+{
+	DDRC=0xff;
+  da:	8f ef       	ldi	r24, 0xFF	; 255
+  dc:	84 bb       	out	0x14, r24	; 20
+	/*PC0,PC1,PC2,PC3 pins of PortC are declared output ( i/p1,i/p2,i/p3,i/p4 pins of DC Motor Driver are connected )*/
+	
+	unsigned char usart_received_data;
+	/*Variable declaration*/
+
+	usart_init();
+  de:	0e 94 41 00 	call	0x82	; 0x82 <usart_init>
+	/*USART initialization*/
+
+	usart_string_transmit("Oltron Technology");
+  e2:	80 e6       	ldi	r24, 0x60	; 96
+  e4:	90 e0       	ldi	r25, 0x00	; 0
+  e6:	0e 94 53 00 	call	0xa6	; 0xa6 <usart_string_transmit>
+}
+
+
+void usart_data_transmit( unsigned char data )
+{
+while ( !( UCSRA & (1<<UDRE)) )
+  ea:	5d 9b       	sbis	0x0b, 5	; 11
+  ec:	fe cf       	rjmp	.-4      	; 0xea <main+0x10>
+;
+UDR = data;
+  ee:	8d e0       	ldi	r24, 0x0D	; 13
+  f0:	8c b9       	out	0x0c, r24	; 12
+		usart_received_data=usart_data_receive();
+		/*Data receive from PC */
+		
+		if(usart_received_data == 'A' || usart_received_data == 'a')
+		{
+			PORTC=0x01;
+  f2:	61 e0       	ldi	r22, 0x01	; 1
+			/*Robot will move forward*/
+
+		}
+		else if(usart_received_data == 'B' || usart_received_data == 'b')
+		{
+			PORTC=0x02;
+  f4:	52 e0       	ldi	r21, 0x02	; 2
+
+			
+		}
+		else if(usart_received_data == 'C' || usart_received_data == 'c')
+		{
+			PORTC=0x04;
+  f6:	44 e0       	ldi	r20, 0x04	; 4
+
+			
+		}
+		else if(usart_received_data == 'D' || usart_received_data == 'd')
+		{
+			PORTC=0x08;
+  f8:	38 e0       	ldi	r19, 0x08	; 8
+
+			
+		}
+		else if(usart_received_data == 'F' || usart_received_data == 'f')
+		{
+			PORTC=0xA0;
+  fa:	20 ea       	ldi	r18, 0xA0	; 160
+
+			
+		}
+		else if(usart_received_data == 'G' || usart_received_data == 'g')
+		{
+			PORTC=0x50;
+  fc:	90 e5       	ldi	r25, 0x50	; 80
+}
+
+unsigned char usart_data_receive( void )
+{
+while ( !(UCSRA & (1<<RXC)) )
+  fe:	5f 9b       	sbis	0x0b, 7	; 11
+ 100:	fe cf       	rjmp	.-4      	; 0xfe <main+0x24>
+;
+return UDR;
+ 102:	8c b1       	in	r24, 0x0c	; 12
+	while(1)
+	{
+		usart_received_data=usart_data_receive();
+		/*Data receive from PC */
+		
+		if(usart_received_data == 'A' || usart_received_data == 'a')
+ 104:	81 34       	cpi	r24, 0x41	; 65
+ 106:	11 f0       	breq	.+4      	; 0x10c <main+0x32>
+ 108:	81 36       	cpi	r24, 0x61	; 97
+ 10a:	11 f4       	brne	.+4      	; 0x110 <main+0x36>
+		{
+			PORTC=0x01;
+ 10c:	65 bb       	out	0x15, r22	; 21
+ 10e:	f7 cf       	rjmp	.-18     	; 0xfe <main+0x24>
+			/*Robot will move forward*/
+
+		}
+		else if(usart_received_data == 'B' || usart_received_data == 'b')
+ 110:	82 34       	cpi	r24, 0x42	; 66
+ 112:	11 f0       	breq	.+4      	; 0x118 <main+0x3e>
+ 114:	82 36       	cpi	r24, 0x62	; 98
+ 116:	11 f4       	brne	.+4      	; 0x11c <main+0x42>
+		{
+			PORTC=0x02;
+ 118:	55 bb       	out	0x15, r21	; 21
+ 11a:	f1 cf       	rjmp	.-30     	; 0xfe <main+0x24>
+			/*Robot will move backward*/
+
+			
+		}
+		else if(usart_received_data == 'C' || usart_received_data == 'c')
+ 11c:	83 34       	cpi	r24, 0x43	; 67
+ 11e:	11 f0       	breq	.+4      	; 0x124 <main+0x4a>
+ 120:	83 36       	cpi	r24, 0x63	; 99
+ 122:	11 f4       	brne	.+4      	; 0x128 <main+0x4e>
+		{
+			PORTC=0x04;
+ 124:	45 bb       	out	0x15, r20	; 21
+ 126:	eb cf       	rjmp	.-42     	; 0xfe <main+0x24>
+			/*Robot will move towards left*/
+
+			
+		}
+		else if(usart_received_data == 'D' || usart_received_data == 'd')
+ 128:	84 34       	cpi	r24, 0x44	; 68
+ 12a:	11 f0       	breq	.+4      	; 0x130 <main+0x56>
+ 12c:	84 36       	cpi	r24, 0x64	; 100
+ 12e:	11 f4       	brne	.+4      	; 0x134 <main+0x5a>
+		{
+			PORTC=0x08;
+ 130:	35 bb       	out	0x15, r19	; 21
+ 132:	e5 cf       	rjmp	.-54     	; 0xfe <main+0x24>
+			/*Robot will move towards right*/
+
+			
+		}
+		else if(usart_received_data == 'E' || usart_received_data == 'e')
+ 134:	85 34       	cpi	r24, 0x45	; 69
+ 136:	91 f0       	breq	.+36     	; 0x15c <main+0x82>
+ 138:	85 36       	cpi	r24, 0x65	; 101
+ 13a:	81 f0       	breq	.+32     	; 0x15c <main+0x82>
+			PORTC=0x00;
+			/*Robot will stop*/
+
+			
+		}
+		else if(usart_received_data == 'F' || usart_received_data == 'f')
+ 13c:	86 34       	cpi	r24, 0x46	; 70
+ 13e:	11 f0       	breq	.+4      	; 0x144 <main+0x6a>
+ 140:	86 36       	cpi	r24, 0x66	; 102
+ 142:	11 f4       	brne	.+4      	; 0x148 <main+0x6e>
+		{
+			PORTC=0xA0;
+ 144:	25 bb       	out	0x15, r18	; 21
+ 146:	db cf       	rjmp	.-74     	; 0xfe <main+0x24>
+			/*Robot will stop*/
+
+			
+		}
+		else if(usart_received_data == 'G' || usart_received_data == 'g')
+ 148:	87 34       	cpi	r24, 0x47	; 71
+ 14a:	11 f0       	breq	.+4      	; 0x150 <main+0x76>
+ 14c:	87 36       	cpi	r24, 0x67	; 103
+ 14e:	11 f4       	brne	.+4      	; 0x154 <main+0x7a>
+		{
+			PORTC=0x50;
+ 150:	95 bb       	out	0x15, r25	; 21
+ 152:	d5 cf       	rjmp	.-86     	; 0xfe <main+0x24>
+			/*Robot will stop*/
+
+			
+		}
+		else if(usart_received_data == 'H' || usart_received_data == 'h')
+ 154:	88 34       	cpi	r24, 0x48	; 72
+ 156:	11 f0       	breq	.+4      	; 0x15c <main+0x82>
+ 158:	88 36       	cpi	r24, 0x68	; 104
+ 15a:	89 f6       	brne	.-94     	; 0xfe <main+0x24>
+		{
+			PORTC=0x00;
+ 15c:	15 ba       	out	0x15, r1	; 21
+ 15e:	cf cf       	rjmp	.-98     	; 0xfe <main+0x24>
+
+00000160 <_exit>:
+ 160:	f8 94       	cli
+
+00000162 <__stop_program>:
+ 162:	ff cf       	rjmp	.-2      	; 0x162 <__stop_program>
