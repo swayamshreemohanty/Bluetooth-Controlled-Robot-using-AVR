@@ -1,6 +1,6 @@
 
 #include<avr/io.h>
-/*Includes io.h header file where all the Input/Output Registers and its Bits are defined for AVR microcontroller*/
+/*Includes io.h header file where all the Input/Output Registers and its Bits are defined for AVR Microcontroller*/
 
 #define	F_CPU	8000000
 /*Defines a macro for the delay.h header file. F_CPU is the microcontroller frequency value for the delay.h header file. Default value of F_CPU in delay.h header file is 1000000(1MHz)*/
